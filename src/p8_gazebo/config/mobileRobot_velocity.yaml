@@ -1,0 +1,31 @@
+mobileRobot:
+  # Publish all joint states
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+  
+  # Velocity controller 
+  left_b_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: left_b
+    pid: {p: 100, i: 0.01, d: 0}
+  left_m_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: left_m
+    pid: {p: 100, i: 0.01, d: 0}
+  left_f_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: left_f
+    pid: {p: 100, i: 0.01, d: 0}
+  right_b_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: right_b
+    pid: {p: 100, i: 0.01, d: 0}
+  right_m_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: right_m
+    pid: {p: 100, i: 0.01, d: 0}
+  right_f_velocity_controller:
+    type: effort_controllers/JointVelocityController
+    joint: right_f
+    pid: {p: 100, i: 0.01, d: 0}

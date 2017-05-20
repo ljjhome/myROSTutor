@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot name="box" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<link name="world"/>
+
+<joint name="float" type="floating">
+	<parent link="world"/>
+	<child link="box"/>
+</joint>
+<link name="box">
+	<collision>
+		<origin xyz="0 0 100" rpy="0 0 0"/>
+		<geometry>
+			<cylinder length="0.2" radius="0.2"/>
+		</geometry>
+	</collision>
+	<visual>
+		<origin xyz="0 0 100" rpy="0 0 0"/>
+		<geometry>
+			<cylinder length="0.2" radius="0.2"/>
+		</geometry>
+	</visual>
+	<inertial>
+		<origin xyz="0 0 100" rpy="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+	</inertial>
+</link>
+
+<link name="abox">
+	<collision>
+		<origin xyz="1 0 100" rpy="0 0 0"/>
+		<geometry>
+			<cylinder length="0.2" radius="0.2"/>
+		</geometry>
+	</collision>
+	<visual>
+		<origin xyz="1 0 100" rpy="0 0 0"/>
+		<geometry>
+			<cylinder length="0.2" radius="0.2"/>
+		</geometry>
+	</visual>
+	<inertial>
+		<origin xyz="1 0 100" rpy="0 0 0"/>
+		<mass value="1.0"/>
+		<inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+	</inertial>
+</link>
+<joint name="j1" type="continuous">
+	<origin xyz="0 0 0" rpy="0 0 0"/>
+	<parent link="box"/>
+	<child link="abox"/>
+	<axis xyz="1 0 0"/>
+</joint>
+</robot>

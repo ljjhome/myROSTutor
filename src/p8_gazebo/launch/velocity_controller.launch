@@ -1,0 +1,21 @@
+<launch>
+
+<!-- Load joint controller configuration file -->
+<rosparam file="$(find p8_gazebo)/config/mobileRobot_velocity.yaml" command="load"/>
+<!-- Load the controller -->
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/mobileRobot" args="joint_state_controller
+                                            left_b_velocity_controller
+                                            left_m_velocity_controller
+                                            left_f_velocity_controller
+                                            right_b_velocity_controller
+                                            right_m_velocity_controller
+                                            right_f_velocity_controller"/>
+
+<!-- convert joint states to TF transforms for rviz, etc -->
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/mobileRobot/joint_states" />
+</node>
+
+</launch>

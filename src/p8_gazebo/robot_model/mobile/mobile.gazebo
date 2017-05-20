@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<robot>
+
+<gazebo>
+	<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+		<robotNamespace>/mobileRobot</robotNamespace>
+		<robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+	</plugin>
+</gazebo>
+
+<gazebo reference="left_leg_b">
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+</gazebo>
+
+<gazebo reference="left_leg_m">
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+</gazebo>
+
+<gazebo reference="left_leg_f">
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+</gazebo>
+
+<gazebo reference="right_leg_b">
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+</gazebo>
+
+<gazebo reference="right_leg_m">
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+</gazebo>
+<gazebo reference="right_leg_f">
+	<mu1>0.2</mu1>
+	<mu2>0.2</mu2>
+</gazebo>
+</robot>

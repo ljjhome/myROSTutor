@@ -1,0 +1,37 @@
+<launch>
+
+<!-- Load joint controller configuration file -->
+<include file="$(find gazebo_ros)/launch/empty_world.launch">
+
+	<arg name="world_name" value="$(find p8_gazebo)/worlds/my_world.world"/>
+</include>
+
+<param name="robot_description" command="$(find xacro)/xacro.py $(find p8_gazebo)/robot_model/mobile/mobile.xacro" />
+
+<!-- Spawn a robot into Gazebo -->
+<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model mobileRobot" />
+
+
+
+
+<!-- Load joint controller configuration file -->
+<rosparam file="$(find p8_gazebo)/config/mobileRobot_velocity.yaml" command="load"/>
+<!-- Load the controller -->
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/mobileRobot" args="joint_state_controller
+                                            left_b_velocity_controller
+                                            left_m_velocity_controller
+                                            left_f_velocity_controller
+                                            right_b_velocity_controller
+                                            right_m_velocity_controller
+                                            right_f_velocity_controller"/>
+
+<!-- convert joint states to TF transforms for rviz, etc -->
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/mobileRobot/joint_states" />
+</node>
+
+<!-- load the velocity publisher-->
+<node name="mobileRobot" pkg="p8_gazebo" type="mobile_control"/>
+</launch>

@@ -1,0 +1,238 @@
+<?xml version="1.0"?>
+<robot name="mobileRobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:property name="PI" value="3.1415926535897931"/>
+<xacro:property name="bodymass" value="1"/>
+<xacro:property name="legmass" value="0.5"/>
+<xacro:include filename="$(find p8_gazebo)/robot_model/mobile/mobile.gazebo"/>
+<xacro:property name="ixx" value="0.11"/>
+<xacro:property name="ixy" value="0"/>
+<xacro:property name="ixz" value="0"/>
+<xacro:property name="iyy" value="0.11"/>
+<xacro:property name="iyz" value="0"/>
+<xacro:property name="izz" value="0.11"/>
+
+<!--<xacro:include filename="$(find p8_gazebo)/robot_model/mobile/materials.xacro" />-->
+
+<link name="world"/>
+<joint name="to_world" type="floating">
+    <parent link="world"/>
+    <child link="body"/>
+</joint>
+<link name="body">
+	<collision>
+		<origin xyz="0 0 0.15" rpy="0 0 0" />
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/top.dae"/></geometry>
+	</collision>
+	<visual>
+		<origin xyz="0 0 0.15" rpy="0 0 0" />
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/top.dae"/></geometry>
+	</visual>
+	<inertial>
+		<origin xyz="0 0 0.15" rpy="0 0 0" />
+		<mass value="${bodymass}"/>
+		<inertia ixx="1.005" ixy="0.0" ixz="0.0" iyy="1.005" iyz="0.0" izz="1.005"/>
+	</inertial>
+</link>	
+<link name="left_leg_b"> <collision> <origin xyz="-0 -0 0" rpy="${PI/2} ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</collision>
+	<visual>
+		<origin xyz="-0 -0 0" rpy="${PI/2} ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+		<material name="orange"/>	
+	</visual>
+	<inertial>
+		<origin xyz="-0 -0 0" rpy="${PI/2} ${PI} 0"/>
+		<mass value="${legmass}"/>
+		<inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+	</inertial>	
+</link>
+<joint name="left_b" type="continuous">
+	<parent link="body"/>
+	<child link="left_leg_b"/>
+	<origin xyz="-0.025 0 0.14" rpy="0 0 0"/>
+	<axis xyz="1 0 0"/>
+	<dynamics damping="0.7"/>
+</joint>
+
+<link name="right_leg_b">
+	<collision>
+		<origin xyz="0 -0 0" rpy="0 ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</collision>
+	<visual>
+		<origin xyz="0 -0 0" rpy="0 ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</visual>
+	<inertial>
+		<origin xyz="0 -0 0" rpy="0 ${PI} 0"/>
+		<mass value="${legmass}"/>
+		<inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+	</inertial>	
+</link>
+<joint name="right_b" type="continuous">
+	<parent link="body"/>
+	<child link="right_leg_b"/>
+	<origin xyz="0.032 0 0.14" rpy="0 0 0"/>
+	<axis xyz="1 0 0"/>
+	<dynamics damping="0.7"/>
+</joint>
+
+<link name="left_leg_m">
+	<collision>
+		<origin xyz="-0 0 0" rpy="0 ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</collision>
+	<visual>
+		<origin xyz="-0 0 0" rpy="0 ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</visual>
+	<inertial>
+		<origin xyz="-0 0 0" rpy="0 ${PI} 0"/>
+		<mass value="${legmass}"/>
+		<inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+	</inertial>	
+</link>
+<joint name="left_m" type="continuous">
+	<parent link="body"/>
+	<child link="left_leg_m"/>
+	<origin xyz="-0.037 0.061 0.14" rpy="0 0 0"/>
+	<axis xyz="1 0 0"/>
+	<dynamics damping="0.7"/>
+</joint>
+	
+<link name="right_leg_m">
+	<collision>
+		<origin xyz="0 0 0" rpy="${PI/2} ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</collision>
+	<visual>
+		<origin xyz="0 0 0" rpy="${PI/2} ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</visual>
+	<inertial>
+		<origin xyz="0 0 0" rpy="${PI/2} ${PI} 0"/>
+		<mass value="${legmass}"/>
+		<inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+	</inertial>	
+</link>
+<joint name="right_m" type="continuous">
+	<parent link="body"/>
+	<child link="right_leg_m"/>
+	<origin xyz="0.044 0.061 0.14" rpy="0 0 0"/>
+	<axis xyz="1 0 0"/>
+	<dynamics damping="0.7"/>
+</joint>
+			
+<link name="left_leg_f">
+	<collision>
+		<origin xyz="-0 0 0" rpy="${PI/2} ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</collision>
+	<visual>
+		<origin xyz="-0 0 0" rpy="${PI/2} ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</visual>
+	<inertial>
+		<origin xyz="-0 0 0" rpy="${PI/2} ${PI} 0"/>
+		<mass value="${legmass}"/>
+		<inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+	</inertial>	
+</link>
+<joint name="left_f" type="continuous">
+	<parent link="body"/>
+	<child link="left_leg_f"/>
+	<origin xyz="-0.025 0.101 0.14" rpy="0 0 0"/>
+	<axis xyz="1 0 0"/>
+	<dynamics damping="0.7"/>
+</joint>
+
+<link name="right_leg_f">
+	<collision>
+		<origin xyz="0 0 0" rpy="0 ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</collision>
+	<visual>
+		<origin xyz="0 0 0" rpy="0 ${PI} 0"/>
+		<geometry><mesh filename="package://p8_gazebo/robot_model/mobile/leftleg.dae"/></geometry>
+	</visual>
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 ${PI} 0"/>
+		<mass value="${legmass}"/>
+		<inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}" iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+	</inertial>	
+</link>
+<joint name="right_f" type="continuous">
+	<parent link="body"/>
+	<child link="right_leg_f"/>
+	<origin xyz="0.032 0.101 0.14" rpy="0 0 0"/>
+	<axis xyz="1 0 0"/>
+	<dynamics damping="0.7"/>
+</joint>
+
+<transmission name="trans_left_b">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="left_b">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="moter_left_b">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+
+<transmission name="trans_left_m">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="left_m">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="moter_left_m">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+<transmission name="trans_left_f">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="left_f">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="moter_left_f">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+
+
+<transmission name="trans_right_b">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="right_b">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="moter_right_b">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+
+<transmission name="trans_right_m">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="right_m">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="moter_right_m">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+<transmission name="trans_right_f">
+	<type>transmission_interface/SimpleTransmission</type>
+	<joint name="right_f">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+	</joint>
+	<actuator name="moter_right_f">
+		<hardwareInterface>EffortJointInterface</hardwareInterface>
+		<mechanicalReduction>1</mechanicalReduction>
+	</actuator>
+</transmission>
+</robot>
